@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="site-title">LocalPulse — Your Local News & Stories</title>
+<meta name="description" id="site-meta-desc" content="Stay updated with the latest local news, stories, and insights from your area.">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" id="og-title" content="LocalPulse — Your Local News & Stories">
+<meta property="og:description" id="og-desc" content="Stay updated with the latest local news, stories, and insights from your area.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- PASTE YOUR GOOGLE ADSENSE SCRIPT HERE -->
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+<style>
+:root{
+  --ink:#1a1208;--ink2:#3d3320;--muted:#7a6e5e;
+  --accent:#c0392b;--accent2:#e67e22;
+  --bg:#faf8f3;--bg2:#f2ede2;--border:#ddd6c8;--white:#fff;
+  --serif:'Playfair Display',Georgia,serif;
+  --body:'Source Serif 4',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --max:1240px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.7}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;height:auto;display:block}
+.container{max-width:var(--max);margin:0 auto;padding:0 20px}
+
+/* ── TOPBAR ── */
+#topbar{background:var(--ink);color:#e8dcc8;font-family:var(--sans);font-size:12px;padding:7px 0}
+#topbar .tb-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+#topbar .date{opacity:.7;font-size:11px}
+#topbar .tb-right{display:flex;align-items:center;gap:10px}
+#topbar .weather-pill{font-size:11px;opacity:.8}
+#topbar .admin-link button{background:transparent;border:1px solid rgba(232,220,200,.4);color:#e8dcc8;font-family:var(--sans);font-size:11px;padding:3px 12px;cursor:pointer;border-radius:2px;transition:.2s}
+#topbar .admin-link button:hover{background:#e8dcc8;color:var(--ink)}
+
+/* ── MASTHEAD ── */
+#masthead{text-align:center;padding:28px 20px 18px;border-bottom:3px double var(--ink);background:var(--white)}
+#masthead h1{font-family:var(--serif);font-size:clamp(2.6rem,6vw,5.2rem);font-weight:900;letter-spacing:-2px;line-height:1;color:var(--ink)}
+#masthead .tagline{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:7px;letter-spacing:3px;text-transform:uppercase}
+#masthead .masthead-line{width:60px;height:3px;background:var(--accent);margin:10px auto 0}
+
+/* ── NAV ── */
+nav{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+nav .nav-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}
+nav ul{display:flex;gap:0;list-style:none;flex-wrap:wrap}
+nav ul li a{display:block;padding:13px 16px;font-family:var(--sans);font-size:12.5px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;color:var(--ink2);transition:.15s;border-bottom:3px solid transparent}
+nav ul li a:hover,nav ul li a.active{color:var(--accent);border-bottom-color:var(--accent)}
+.nav-search{display:flex;align-items:center;gap:8px;padding:8px 0}
+.nav-search input{border:1px solid var(--border);background:var(--bg);border-radius:20px;padding:6px 14px;font-family:var(--sans);font-size:12px;color:var(--ink);outline:none;width:160px;transition:.2s}
+.nav-search input:focus{border-color:var(--accent);width:200px}
+
+/* ── BREAKING ── */
+#breaking{background:var(--accent);color:#fff;padding:8px 0;font-family:var(--sans);font-size:13px;overflow:hidden}
+#breaking .brk-wrap{display:flex;align-items:center;gap:0}
+#breaking .label{background:rgba(0,0,0,.25);padding:4px 14px;font-weight:700;font-size:11px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;margin-right:16px;letter-spacing:1px}
+#breaking .ticker{overflow:hidden;white-space:nowrap;flex:1;mask-image:linear-gradient(to right,transparent,black 3%,black 97%,transparent)}
+#breaking .ticker-inner{display:inline-block;animation:ticker 35s linear infinite}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── AD BANNER ── */
+.ad-slot{background:var(--bg2);border:1px dashed #c8bfb0;text-align:center;padding:16px;font-family:var(--sans);font-size:11px;color:var(--muted)}
+.ad-slot .ad-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;opacity:.7}
+.ad-slot .ad-placeholder{display:flex;align-items:center;justify-content:center;border:1px dashed #ccc;color:#aaa;font-size:12px;background:#fff}
+
+/* ══════════════════════════════════════════
+   ── HOME PAGE LAYOUT ──
+══════════════════════════════════════════ */
+#home-view{}
+
+/* HERO STRIP */
+.hero-strip{max-width:var(--max);margin:24px auto 0;padding:0 20px}
+.hero-grid{display:grid;grid-template-columns:1fr 340px;gap:3px}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr}}
+
+/* MAIN HERO CARD */
+.hero-main{position:relative;overflow:hidden;cursor:pointer;background:var(--ink)}
+.hero-main img{width:100%;height:480px;object-fit:cover;opacity:.82;transition:.3s}
+.hero-main:hover img{opacity:.72;transform:scale(1.02)}
+.hero-main .hero-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(10,6,2,.92) 0%,rgba(10,6,2,.4) 70%,transparent 100%);padding:28px 28px 30px}
+.hero-main .cat-badge{font-family:var(--sans);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;background:var(--accent);color:#fff;padding:3px 10px;border-radius:1px;display:inline-block;margin-bottom:10px}
+.hero-main h2{font-family:var(--serif);font-size:clamp(1.6rem,2.5vw,2.3rem);font-weight:700;color:#fff;line-height:1.2;margin-bottom:10px}
+.hero-main .excerpt{font-family:var(--sans);font-size:14px;color:rgba(255,255,255,.8);line-height:1.6;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.hero-main .meta{font-family:var(--sans);font-size:12px;color:rgba(255,255,255,.6)}
+.hero-main .yt-badge{display:inline-flex;align-items:center;gap:5px;background:#ff0000;color:#fff;font-family:var(--sans);font-size:10px;font-weight:700;padding:2px 8px;border-radius:2px;margin-bottom:8px}
+.hero-main .no-img-hero{width:100%;height:480px;background:var(--ink2);display:flex;align-items:center;justify-content:center;font-size:80px}
+
+/* SIDE STACK */
+.hero-side{display:flex;flex-direction:column;gap:3px}
+.hero-side-card{position:relative;overflow:hidden;cursor:pointer;flex:1;background:var(--ink);min-height:155px}
+.hero-side-card img{width:100%;height:155px;object-fit:cover;opacity:.78;transition:.3s}
+.hero-side-card:hover img{opacity:.65;transform:scale(1.03)}
+.hero-side-card .side-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(10,6,2,.88),transparent);padding:12px 14px 14px}
+.hero-side-card .cat-badge-sm{font-family:var(--sans);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;background:var(--accent);color:#fff;padding:2px 7px;border-radius:1px;display:inline-block;margin-bottom:5px}
+.hero-side-card h3{font-family:var(--serif);font-size:.95rem;color:#fff;line-height:1.25;margin-bottom:4px}
+.hero-side-card .side-excerpt{font-family:var(--sans);font-size:12px;color:rgba(255,255,255,.72);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:4px}
+.hero-side-card .side-meta{font-family:var(--sans);font-size:11px;color:rgba(255,255,255,.5)}
+.hero-side-card .no-img-side{width:100%;height:155px;background:#2a2015;display:flex;align-items:center;justify-content:center;font-size:36px}
+
+/* ── MAIN BODY ── */
+#main-content{display:grid;grid-template-columns:1fr 310px;gap:36px;max-width:var(--max);margin:30px auto 60px;padding:0 20px}
+@media(max-width:860px){#main-content{grid-template-columns:1fr}}
+
+/* SECTION TITLES */
+.section-hd{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.section-hd h2{font-family:var(--serif);font-size:1.35rem;white-space:nowrap}
+.section-hd .hd-line{flex:1;height:1px;background:var(--border)}
+.section-hd .hd-more{font-family:var(--sans);font-size:12px;color:var(--accent);font-weight:600;white-space:nowrap;cursor:pointer}
+
+/* POST CARDS GRID */
+.posts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px;margin-bottom:36px}
+.post-card{background:var(--white);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;transition:.18s;display:flex;flex-direction:column}
+.post-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-2px)}
+.post-card .card-media{position:relative;overflow:hidden}
+.post-card .card-img{width:100%;height:170px;object-fit:cover;transition:.3s}
+.post-card:hover .card-img{transform:scale(1.04)}
+.post-card .card-img-ph{width:100%;height:170px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:44px;color:var(--muted)}
+.post-card .yt-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;background:rgba(255,0,0,.85);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.post-card .yt-play::after{content:'';border:0 solid transparent;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid white;margin-left:4px}
+.post-card-body{padding:15px 16px 18px;flex:1;display:flex;flex-direction:column}
+.post-card .cat{font-family:var(--sans);font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--accent);font-weight:700;margin-bottom:7px}
+.post-card h3{font-family:var(--serif);font-size:1.05rem;line-height:1.3;margin-bottom:8px;color:var(--ink);flex:1}
+.post-card h3:hover{color:var(--accent)}
+.post-card .card-excerpt{font-family:var(--sans);font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.post-card .meta{font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:auto}
+
+/* LIST STYLE POSTS (below grid) */
+.post-list-item{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);cursor:pointer}
+.post-list-item:last-child{border:none}
+.post-list-item:hover h3{color:var(--accent)}
+.post-list-item .li-img{width:120px;height:80px;object-fit:cover;border-radius:2px}
+.post-list-item .li-ph{width:120px;height:80px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:28px;border-radius:2px}
+.post-list-item .cat{font-family:var(--sans);font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--accent);font-weight:700;margin-bottom:4px}
+.post-list-item h3{font-family:var(--serif);font-size:1rem;line-height:1.3;margin-bottom:5px;color:var(--ink)}
+.post-list-item .li-excerpt{font-family:var(--sans);font-size:13px;color:var(--ink2);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:5px}
+.post-list-item .meta{font-family:var(--sans);font-size:11px;color:var(--muted)}
+
+/* ── SIDEBAR ── */
+aside{display:flex;flex-direction:column;gap:24px}
+.widget{background:var(--white);border:1px solid var(--border);padding:20px;border-radius:2px}
+.widget-title{font-family:var(--serif);font-size:1.05rem;border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:14px}
+.widget ul{list-style:none}
+.widget ul li{padding:9px 0;border-bottom:1px solid var(--border);font-size:13.5px;line-height:1.45;display:flex;align-items:flex-start;gap:8px}
+.widget ul li:last-child{border:none}
+.widget ul li .w-num{font-family:var(--sans);font-size:18px;font-weight:700;color:var(--border);flex-shrink:0;line-height:1}
+.widget ul li a:hover{color:var(--accent)}
+.widget ul li .cat-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;display:inline-block;margin-right:6px;flex-shrink:0;margin-top:6px}
+.cat-count{font-family:var(--sans);font-size:11px;color:var(--muted);margin-left:auto;flex-shrink:0}
+
+/* TRENDING WIDGET */
+.trending-item{display:grid;grid-template-columns:64px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);cursor:pointer}
+.trending-item:last-child{border:none}
+.trending-item:hover .ti-title{color:var(--accent)}
+.trending-item img{width:64px;height:48px;object-fit:cover;border-radius:2px}
+.trending-item .ti-ph{width:64px;height:48px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:22px;border-radius:2px}
+.trending-item .ti-title{font-family:var(--serif);font-size:.9rem;line-height:1.3;color:var(--ink);margin-bottom:3px}
+.trending-item .ti-meta{font-family:var(--sans);font-size:11px;color:var(--muted)}
+
+/* ── ARTICLE PAGE ── */
+#article-view{display:none;padding:30px 20px 60px;max-width:860px;margin:0 auto}
+.article-back{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--ink2);cursor:pointer;margin-bottom:20px;display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border:1px solid var(--border);border-radius:2px;transition:.2s}
+.article-back:hover{background:var(--bg2);color:var(--accent)}
+.article-cat{font-family:var(--sans);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:10px}
+#article-view h1{font-family:var(--serif);font-size:clamp(1.9rem,4vw,3rem);font-weight:700;line-height:1.15;margin-bottom:14px}
+.article-meta{font-family:var(--sans);font-size:13px;color:var(--muted);margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.article-meta .author-pill{background:var(--bg2);padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;color:var(--ink2)}
+.article-hero-img{width:100%;max-height:500px;object-fit:cover;border-radius:3px;margin-bottom:8px}
+.article-img-caption{font-family:var(--sans);font-size:12px;color:var(--muted);text-align:center;margin-bottom:28px;font-style:italic}
+/* YouTube embed */
+.yt-embed-wrap{position:relative;width:100%;padding-bottom:56.25%;margin:24px 0;border-radius:4px;overflow:hidden;background:#000}
+.yt-embed-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.article-body{font-size:18px;line-height:1.9;color:var(--ink2)}
+.article-body p{margin-bottom:1.4em}
+.article-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px;padding-top:20px;border-top:1px solid var(--border)}
+.tag-pill{font-family:var(--sans);font-size:12px;padding:4px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:20px;color:var(--ink2)}
+/* Related */
+.related-posts{margin-top:40px;padding-top:24px;border-top:2px solid var(--ink)}
+.related-posts h3{font-family:var(--serif);font-size:1.3rem;margin-bottom:18px}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}
+
+/* ── ADMIN PANEL ── */
+#admin-panel{display:none;background:var(--bg);padding:30px 20px 60px;min-height:80vh}
+.admin-wrap{max-width:980px;margin:0 auto}
+.admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid var(--ink);flex-wrap:wrap;gap:10px}
+.admin-header h2{font-family:var(--serif);font-size:2rem}
+.btn{font-family:var(--sans);font-size:13px;font-weight:600;padding:10px 20px;border-radius:3px;cursor:pointer;border:none;transition:.15s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#a93226}
+.btn-secondary{background:var(--ink2);color:#fff}.btn-secondary:hover{background:var(--ink)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--ink2)}.btn-outline:hover{background:var(--bg2)}
+.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
+.btn-sm{padding:6px 14px;font-size:12px}
+.btn-green{background:#27ae60;color:#fff}.btn-green:hover{background:#1e8449}
+.admin-tabs{display:flex;gap:4px;margin-bottom:22px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:0}
+.admin-tab{font-family:var(--sans);font-size:13px;padding:10px 18px;border:1px solid transparent;border-bottom:none;cursor:pointer;background:transparent;color:var(--muted);transition:.15s;border-radius:3px 3px 0 0;margin-bottom:-1px}
+.admin-tab.active{background:var(--white);border-color:var(--border);border-bottom-color:var(--white);color:var(--accent);font-weight:600}
+.admin-tab:hover:not(.active){color:var(--ink)}
+.editor-card{background:var(--white);border:1px solid var(--border);padding:28px;margin-bottom:24px;border-radius:3px}
+.editor-card h3{font-family:var(--serif);font-size:1.4rem;margin-bottom:20px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-family:var(--sans);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:6px}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:3px;font-family:var(--body);font-size:15px;background:var(--bg);color:var(--ink);outline:none;transition:.2s}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--accent);background:var(--white)}
+.form-group textarea{min-height:240px;resize:vertical;line-height:1.8}
+.form-group small{display:block;font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:5px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.form-row{grid-template-columns:1fr}}
+.publish-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding-top:16px;border-top:1px solid var(--border)}
+.char-count{font-family:var(--sans);font-size:11px;color:var(--muted);margin-left:auto}
+/* Toggle */
+.toggle-wrap{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.toggle-wrap label{font-family:var(--sans);font-size:13px;color:var(--ink2)}
+.toggle{position:relative;display:inline-block;width:42px;height:22px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;top:0;left:0;right:0;bottom:0;background:var(--border);border-radius:22px;cursor:pointer;transition:.2s}
+.toggle-slider:before{content:'';position:absolute;height:16px;width:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.2s}
+.toggle input:checked+.toggle-slider{background:var(--accent)}
+.toggle input:checked+.toggle-slider:before{transform:translateX(20px)}
+/* Table */
+.data-card{background:var(--white);border:1px solid var(--border);padding:24px;border-radius:3px}
+.data-card h3{font-family:var(--serif);font-size:1.2rem;margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;font-family:var(--sans)}
+th{text-align:left;padding:10px 12px;background:var(--bg2);font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--border)}
+td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--ink2)}
+tr:last-child td{border:none}
+tr:hover td{background:var(--bg)}
+.status-badge{font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px;text-transform:uppercase}
+.status-published{background:#d5f5e3;color:#1e8449}
+.status-draft{background:#fef9e7;color:#b7950b}
+/* yt badge in table */
+.yt-tag{font-size:10px;background:#ff0000;color:#fff;padding:2px 6px;border-radius:2px;font-weight:700;margin-left:6px}
+/* Settings */
+.settings-info{background:#fff8f0;border:1px solid #f0d9b5;border-left:3px solid var(--accent2);padding:14px 16px;font-family:var(--sans);font-size:13px;color:#7a5c2e;border-radius:2px;margin-bottom:18px;line-height:1.7}
+.settings-info a{color:var(--accent);text-decoration:underline}
+/* SEO guide */
+.seo-block{background:var(--white);border:1px solid var(--border);padding:18px 20px;border-radius:3px;border-left:3px solid var(--accent2)}
+.seo-block strong{display:block;font-family:var(--sans);font-size:13px;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.seo-block p{font-family:var(--sans);font-size:13px;color:var(--ink2);line-height:1.7}
+/* Login */
+#login-panel{display:none;min-height:70vh;padding:60px 20px;display:none}
+.login-box{background:var(--white);border:1px solid var(--border);padding:40px;max-width:400px;width:100%;margin:0 auto;border-radius:3px}
+.login-box h2{font-family:var(--serif);font-size:2rem;margin-bottom:24px;text-align:center}
+/* Footer */
+footer{background:var(--ink);color:#e8dcc8;padding:44px 20px 22px;font-family:var(--sans)}
+footer .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:30px;max-width:var(--max);margin:0 auto 28px}
+footer h4{font-family:var(--serif);font-size:1.1rem;margin-bottom:14px;color:#fff}
+footer p{font-size:13px;color:#b0a898;line-height:1.8}
+footer ul{list-style:none}
+footer ul li{padding:3px 0;font-size:13px;color:#b0a898}
+footer ul li a:hover{color:#fff}
+footer .copy{text-align:center;font-size:12px;color:#6a5e4e;border-top:1px solid #2d2518;padding-top:16px;max-width:var(--max);margin:0 auto}
+/* Toast */
+#toast{position:fixed;bottom:24px;right:24px;background:var(--ink);color:#e8dcc8;font-family:var(--sans);font-size:14px;padding:12px 22px;border-radius:4px;display:none;z-index:9999;border-left:3px solid #27ae60;max-width:320px}
+#toast.error{border-left-color:var(--accent)}
+/* Search results */
+#search-results-view{display:none;max-width:var(--max);margin:30px auto;padding:0 20px 60px}
+/* Responsive */
+@media(max-width:600px){
+  .hero-main img,.hero-main .no-img-hero{height:280px}
+  .post-list-item{grid-template-columns:90px 1fr}
+  .post-list-item .li-img,.post-list-item .li-ph{width:90px;height:64px}
+  nav .nav-search{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ TOPBAR ═══ -->
+<div id="topbar">
+  <div class="container tb-inner">
+    <span class="date" id="today-date"></span>
+    <div class="tb-right">
+      <span class="weather-pill" id="weather-pill"></span>
+      <div class="admin-link"><button onclick="showLogin()">⚙ Admin</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MASTHEAD ═══ -->
+<header id="masthead">
+  <h1 id="site-name-display">LocalPulse</h1>
+  <p class="tagline" id="site-tagline-display">Your Local News & Stories</p>
+  <div class="masthead-line"></div>
+</header>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="container nav-inner">
+    <ul id="nav-categories">
+      <li><a href="#" class="active" onclick="filterCategory('all');return false">All</a></li>
+    </ul>
+    <div class="nav-search">
+      <input type="text" id="search-input" placeholder="🔍 Search posts..." oninput="doSearch(this.value)" onkeydown="if(event.key==='Escape'){this.value='';showHome()}">
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ BREAKING TICKER ═══ -->
+<div id="breaking">
+  <div class="container brk-wrap">
+    <span class="label">🔴 Breaking</span>
+    <div class="ticker"><div class="ticker-inner" id="ticker-text"></div></div>
+  </div>
+</div>
+
+<!-- ═══ AD TOP ═══ -->
+<div class="ad-slot container" style="margin-top:16px;margin-bottom:0">
+  <div class="ad-label">Advertisement</div>
+  <div class="ad-placeholder" style="height:80px">📢 AdSense Banner 728×90 — Paste your &lt;ins class="adsbygoogle"&gt; tag here</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HOME VIEW
+══════════════════════════════════════════ -->
+<section id="home-view">
+
+  <!-- HERO STRIP -->
+  <div class="hero-strip">
+    <div class="hero-grid" id="hero-grid">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT + SIDEBAR -->
+  <div id="main-content">
+    <main id="blog-main">
+
+      <!-- LATEST NEWS GRID -->
+      <div id="grid-section">
+        <div class="section-hd">
+          <h2>Latest Stories</h2>
+          <div class="hd-line"></div>
+        </div>
+        <div class="posts-grid" id="posts-grid"></div>
+      </div>
+
+      <!-- AD MID -->
+      <div class="ad-slot" style="margin-bottom:28px">
+        <div class="ad-label">Advertisement</div>
+        <div class="ad-placeholder" style="height:250px">📢 AdSense 300×250 Rectangle — great for revenue</div>
+      </div>
+
+      <!-- MORE POSTS LIST -->
+      <div id="list-section" style="display:none">
+        <div class="section-hd">
+          <h2>More News</h2>
+          <div class="hd-line"></div>
+        </div>
+        <div id="posts-list"></div>
+      </div>
+
+    </main>
+
+    <!-- ── SIDEBAR ── -->
+    <aside id="sidebar">
+      <div class="widget">
+        <h3 class="widget-title">Trending Now</h3>
+        <div id="trending-widget"></div>
+      </div>
+
+      <div class="widget">
+        <h3 class="widget-title">Categories</h3>
+        <ul id="cat-list"></ul>
+      </div>
+
+      <!-- SIDEBAR AD -->
+      <div class="ad-slot widget" style="padding:14px">
+        <div class="ad-label">Advertisement</div>
+        <div class="ad-placeholder" style="height:280px">📢 AdSense Sidebar 300×280</div>
+      </div>
+
+      <div class="widget">
+        <h3 class="widget-title">About</h3>
+        <p id="about-widget-text" style="font-size:14px;color:var(--ink2);line-height:1.7"></p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ═══ SEARCH RESULTS ═══ -->
+<div id="search-results-view">
+  <div class="section-hd"><h2 id="search-hd">Search Results</h2><div class="hd-line"></div></div>
+  <div class="posts-grid" id="search-grid"></div>
+  <p id="search-empty" style="display:none;font-family:var(--sans);color:var(--muted);padding:30px 0">No posts found. Try a different keyword.</p>
+</div>
+
+<!-- ═══ ARTICLE VIEW ═══ -->
+<div id="article-view">
+  <span class="article-back" onclick="goHome()">← Back to Home</span>
+
+  <div class="ad-slot" style="margin-bottom:22px">
+    <div class="ad-label">Advertisement</div>
+    <div class="ad-placeholder" style="height:80px">📢 In-Article AdSense Banner</div>
+  </div>
+
+  <p class="article-cat" id="av-cat"></p>
+  <h1 id="av-title"></h1>
+  <div class="article-meta" id="av-meta"></div>
+  <img id="av-img" class="article-hero-img" src="" alt="" style="display:none">
+  <p class="article-img-caption" id="av-imgcap" style="display:none"></p>
+  <!-- YouTube embed -->
+  <div class="yt-embed-wrap" id="av-yt" style="display:none">
+    <iframe id="av-yt-frame" src="" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div class="article-body" id="av-body"></div>
+  <div class="article-tags" id="av-tags"></div>
+
+  <div class="ad-slot" style="margin:30px 0">
+    <div class="ad-label">Advertisement</div>
+    <div class="ad-placeholder" style="height:250px">📢 AdSense After Article 300×250</div>
+  </div>
+
+  <!-- Related posts -->
+  <div class="related-posts" id="related-section">
+    <h3>Related Stories</h3>
+    <div class="related-grid" id="related-grid"></div>
+  </div>
+</div>
+
+<!-- ═══ LOGIN ═══ -->
+<div id="login-panel">
+  <div class="login-box">
+    <h2>Admin Login</h2>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="login-pw" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <!-- <p style="font-size:12px;color:var(--muted);margin-bottom:16px;font-family:var(--sans)">Default: <strong>admin123</strong> — change in Settings</p> -->
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-primary" onclick="doLogin()">Login</button>
+      <button class="btn btn-outline" onclick="showHome()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ADMIN PANEL ═══ -->
+<div id="admin-panel">
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <h2>⚙ Admin Panel</h2>
+      <button class="btn btn-outline" onclick="showHome()">← View Site</button>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchTab('tab-write')">✏ Write Post</button>
+      <button class="admin-tab" onclick="switchTab('tab-posts')">📋 All Posts</button>
+      <button class="admin-tab" onclick="switchTab('tab-settings')">⚙ Settings</button>
+      <button class="admin-tab" onclick="switchTab('tab-seo')">📈 SEO Guide</button>
+    </div>
+
+    <!-- ── WRITE TAB ── -->
+    <div id="tab-write">
+      <div class="editor-card">
+        <h3 id="editor-title">✏ Write New Post</h3>
+        <input type="hidden" id="edit-id">
+
+        <div class="form-group">
+          <label>Post Title *</label>
+          <input type="text" id="f-title" placeholder="Write a clear, keyword-rich headline...">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Category</label>
+            <select id="f-cat">
+              <option>News</option><option>Local</option><option>Opinion</option>
+              <option>Sports</option><option>Business</option><option>Health</option>
+              <option>Technology</option><option>Entertainment</option><option>Education</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Author Name</label>
+            <input type="text" id="f-author" placeholder="Your name">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Short Excerpt (shown on homepage cards)</label>
+          <input type="text" id="f-excerpt" maxlength="180" placeholder="2–3 lines that hook the reader...">
+          <small>Keep under 160 characters for best SEO preview</small>
+        </div>
+
+        <div class="form-group">
+          <label>Cover Image URL (optional)</label>
+          <input type="text" id="f-img" placeholder="https://images.unsplash.com/... (or use imgbb.com to upload)">
+          <small>Use Unsplash (free) or upload to <a href="https://imgbb.com" target="_blank" style="color:var(--accent)">imgbb.com</a> and paste the direct link</small>
+        </div>
+
+        <div class="form-group">
+          <label>Image Alt Text (for SEO)</label>
+          <input type="text" id="f-imgalt" placeholder="Describe the image — helps Google image search">
+        </div>
+
+        <!-- YOUTUBE -->
+        <div style="background:#fff5f5;border:1px solid #f5b7b1;border-left:3px solid #e74c3c;border-radius:3px;padding:16px 18px;margin-bottom:16px">
+          <div class="toggle-wrap" style="margin-bottom:12px">
+            <label class="toggle"><input type="checkbox" id="f-has-yt" onchange="toggleYtField()"><span class="toggle-slider"></span></label>
+            <label for="f-has-yt" style="font-family:var(--sans);font-size:13px;font-weight:600;color:#c0392b">▶ Add YouTube Video to this post</label>
+          </div>
+          <div id="yt-field" style="display:none">
+            <div class="form-group" style="margin-bottom:8px">
+              <label>YouTube Video URL or ID</label>
+              <input type="text" id="f-yturl" placeholder="https://www.youtube.com/watch?v=XXXXXXXXXXX  or just the video ID">
+              <small>Paste the full YouTube URL or just the video ID (e.g. dQw4w9WgXcQ). The video will embed directly in the article.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Article Body * <span style="font-weight:400;text-transform:none;letter-spacing:0">(write full content — longer articles rank better on Google)</span></label>
+          <textarea id="f-body" placeholder="Write your article here. Use full paragraphs. For better Google ranking, aim for at least 500 words. Mention your city/area name naturally in the content.&#10;&#10;Press Enter twice to create a new paragraph."></textarea>
+          <small id="body-count">0 words</small>
+        </div>
+
+        <div class="form-group">
+          <label>SEO Meta Description (for Google preview)</label>
+          <input type="text" id="f-metadesc" maxlength="160" placeholder="What appears under your title in Google results...">
+          <small>Max 155 characters</small>
+        </div>
+
+        <div class="form-group">
+          <label>Tags / Keywords (comma separated)</label>
+          <input type="text" id="f-tags" placeholder="local news, jodhpur, community, event...">
+        </div>
+
+        <div class="publish-bar">
+          <button class="btn btn-primary" onclick="savePost('published')">🚀 Publish Now</button>
+          <button class="btn btn-outline" onclick="savePost('draft')">💾 Save Draft</button>
+          <button class="btn btn-outline" onclick="clearEditor()">✕ Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── POSTS TAB ── -->
+    <div id="tab-posts" style="display:none">
+      <div class="data-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+          <h3 style="margin:0">All Posts</h3>
+          <button class="btn btn-primary btn-sm" onclick="switchTab('tab-write');clearEditor()">+ New Post</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:38%">Title</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Views</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-post-table"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SETTINGS TAB ── -->
+    <div id="tab-settings" style="display:none">
+      <div class="editor-card">
+        <h3>Site Settings</h3>
+        <div class="settings-info">
+          💡 To publish this site on the internet: save this file → upload to <a href="https://pages.github.com" target="_blank">GitHub Pages</a> or <a href="https://netlify.com" target="_blank">Netlify</a> (free) → connect a custom domain → submit to <a href="https://search.google.com/search-console" target="_blank">Google Search Console</a>.
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Site Name</label><input type="text" id="s-name"></div>
+          <div class="form-group"><label>Tagline</label><input type="text" id="s-tagline"></div>
+        </div>
+        <div class="form-group"><label>About Text (sidebar)</label><input type="text" id="s-about"></div>
+        <div class="form-group">
+          <label>Google AdSense Publisher ID</label>
+          <input type="text" id="s-adsense" placeholder="ca-pub-XXXXXXXXXXXXXXXX">
+          <small>Sign up at <a href="https://adsense.google.com" target="_blank" style="color:var(--accent)">adsense.google.com</a> — paste your pub ID then add the script to the &lt;head&gt; of this file</small>
+        </div>
+        <div class="form-group">
+          <label>Breaking News Ticker</label>
+          <input type="text" id="s-ticker" placeholder="Separate headlines with  ●  ">
+        </div>
+        <div class="form-group"><label>Admin Password</label><input type="password" id="s-pw" placeholder="New password (leave blank to keep current)"></div>
+        <div class="form-row">
+          <div class="form-group"><label>Footer: About Heading</label><input type="text" id="s-f1"></div>
+          <div class="form-group"><label>Footer: About Text</label><input type="text" id="s-f1t"></div>
+        </div>
+        <div class="publish-bar">
+          <button class="btn btn-primary" onclick="saveSettings()">💾 Save Settings</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEO TAB ── -->
+    <div id="tab-seo" style="display:none">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="seo-block">
+          <strong>Step 1 — Host your site online (free)</strong>
+          <p>Save this HTML file → drag it to <a href="https://netlify.com" target="_blank" style="color:var(--accent)">Netlify Drop</a> (free, instant live URL). Or push to <a href="https://pages.github.com" target="_blank" style="color:var(--accent)">GitHub Pages</a>. Buy a .in domain (₹800/yr) from GoDaddy or Namecheap and connect it for a professional URL.</p>
+        </div>
+        <div class="seo-block">
+          <strong>Step 2 — Submit to Google Search Console</strong>
+          <p>Visit <a href="https://search.google.com/search-console" target="_blank" style="color:var(--accent)">search.google.com/search-console</a> → add your domain → verify ownership → request indexing. Google will start crawling your posts within days.</p>
+        </div>
+        <div class="seo-block">
+          <strong>Step 3 — Google AdSense Approval Checklist</strong>
+          <p>✅ Publish 15+ original articles (500+ words each)<br>✅ Create About, Contact, Privacy Policy pages<br>✅ Use a custom domain (not a free subdomain)<br>✅ No copied/plagiarized content<br>✅ Site live for at least 2–4 weeks<br>Then apply at <a href="https://adsense.google.com" target="_blank" style="color:var(--accent)">adsense.google.com</a></p>
+        </div>
+        <div class="seo-block">
+          <strong>Step 4 — SEO Writing Tips for More Google Traffic</strong>
+          <p>🔑 Include city/area name (e.g. "Jodhpur") in titles and first paragraph<br>📝 Target 600–1500 words per article<br>🏷 Put your main keyword in title, first line, and meta description<br>🔗 Link between your own articles (internal links)<br>📸 Always fill Image Alt Text<br>⏱ Post 3–5 times per week consistently</p>
+        </div>
+        <div class="seo-block">
+          <strong>Step 5 — YouTube Videos = More Traffic</strong>
+          <p>Embed YouTube videos in your articles using the YouTube field in the editor. Articles with videos rank higher on Google and keep visitors on your page longer (great for AdSense revenue). You can embed your own videos or relevant public videos.</p>
+        </div>
+        <div class="seo-block">
+          <strong>Step 6 — Promote on Social Media</strong>
+          <p>Share every post on WhatsApp groups, Facebook local community pages, Instagram, and Twitter/X. Be consistent — local area Facebook groups and WhatsApp are the fastest way to grow traffic.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer id="site-footer">
+  <div class="footer-grid">
+    <div>
+      <h4 id="footer-site-name">LocalPulse</h4>
+      <p id="footer-about">Your local source for news, stories, and community updates.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#" onclick="showHome()">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Follow Us</h4>
+      <ul>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Twitter / X</a></li>
+        <li><a href="#">WhatsApp Channel</a></li>
+        <li><a href="#">YouTube</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="copy" id="footer-copy">© 2025 LocalPulse. All rights reserved.</p>
+</footer>
+
+<div id="toast"></div>
+
+<!-- ══════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════ -->
+<script>
+const STORAGE_POSTS = 'lp_posts_v2';
+const STORAGE_SETTINGS = 'lp_settings_v2';
+
+const defaultSettings = {
+  name:'LocalPulse', tagline:'Your Local News & Stories',
+  about:'Your go-to source for local news, stories, and community updates from your area.',
+  adsense:'', ga:'', pw:'admin123',
+  ticker:'Welcome to LocalPulse!  ●  Stay tuned for local news  ●  Check back daily for updates  ●  Follow us on social media',
+  f1:'About', f1t:'Your local source for news, stories, and community updates.',
+};
+
+const samplePosts = [
+  {
+    id:1001, title:'Welcome to LocalPulse — Your New Local News Hub!',
+    category:'News', author:'Editor', date:new Date().toISOString(),
+    excerpt:'LocalPulse is your dedicated source for local news, events, and community stories. Stay informed, stay connected.',
+    body:`Welcome to LocalPulse — your dedicated local news and blog platform.\n\nWe are committed to bringing you accurate, timely, and relevant information about everything happening in your area. Whether it is local government decisions, community events, business openings, sports results, or human interest stories — we cover it all.\n\nOur mission is simple: keep our community informed and connected. In a world where local news is shrinking, we believe every community deserves a reliable voice.\n\nBookmark this site, share it with friends and family on WhatsApp and Facebook, and check back daily for the latest updates.\n\nThank you for being part of our growing community. Together, we can keep local news alive.`,
+    image:'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80',
+    imageAlt:'Local newspaper and news media', metaDesc:'Welcome to LocalPulse, your new local news blog for community stories and updates.',
+    tags:'local news, community, blog, welcome', status:'published', views:12,
+    ytUrl:'', hasYt:false
+  },
+  {
+    id:1002, title:'Local Market Sees Record Footfall This Weekend',
+    category:'Local', author:'Editor', date:new Date(Date.now()-86400000).toISOString(),
+    excerpt:'The weekly local market attracted thousands of visitors this weekend, with vendors reporting their highest sales in years.',
+    body:`The local weekly market saw an extraordinary turnout this past weekend, with estimates suggesting over five thousand visitors passed through the stalls over the two-day event.\n\nLocal vendors reported their best sales figures in recent memory, with fresh produce, handmade crafts, and street food all proving popular with both residents and visitors from neighbouring areas.\n\n"I have been selling here for twelve years and this was my best weekend ever," said one vegetable seller who preferred to remain unnamed.\n\nOrganisers attributed the success to favourable weather, social media promotion, and the launch of a new entertainment zone featuring local musicians and street performers.\n\nThe market will return next weekend with even more stalls confirmed to attend.`,
+    image:'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&q=80',
+    imageAlt:'Busy local market with stalls and shoppers',
+    metaDesc:'Local market sees record footfall this weekend with thousands of visitors and vendors reporting best sales in years.',
+    tags:'local market, community, shopping, weekend', status:'published', views:34,
+    ytUrl:'', hasYt:false
+  },
+  {
+    id:1003, title:'City Council Approves New Park Development Plan',
+    category:'News', author:'Editor', date:new Date(Date.now()-172800000).toISOString(),
+    excerpt:'The city council has unanimously approved a ₹2 crore development plan to transform the old fairground into a modern community park.',
+    body:`In a unanimous vote at Tuesday's city council meeting, councillors approved a ₹2 crore plan to redevelop the disused fairground into a modern community park.\n\nThe new facility will feature a children's play area, outdoor gym equipment, walking and cycling paths, a small amphitheatre for community events, and a café kiosk.\n\nWork is expected to begin within three months, with the park due to open to the public by next year.\n\n"This has been a long time coming," said the Mayor in a statement. "Our residents deserve green spaces where families can spend quality time together."\n\nResidents have broadly welcomed the news, though some have raised concerns about parking facilities in the surrounding streets during the construction period.`,
+    image:'https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=800&q=80',
+    imageAlt:'New community park with green spaces and pathways',
+    metaDesc:'City council approves ₹2 crore plan to build a new community park on the old fairground site.',
+    tags:'city council, park, development, community', status:'published', views:21,
+    ytUrl:'', hasYt:false
+  }
+];
+
+let posts = JSON.parse(localStorage.getItem(STORAGE_POSTS)||'null') || samplePosts;
+let settings = JSON.parse(localStorage.getItem(STORAGE_SETTINGS)||'null') || defaultSettings;
+let filterCat = 'all';
+let currentView = 'home';
+
+/* ── INIT ── */
+function init(){
+  applySettings();
+  renderHome();
+  renderNavCats();
+  renderSidebar();
+  document.getElementById('today-date').textContent =
+    new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  // word count live
+  document.getElementById('f-body').addEventListener('input', function(){
+    const words = this.value.trim().split(/\s+/).filter(w=>w).length;
+    document.getElementById('body-count').textContent = words + ' words' + (words<500?' — aim for 500+ for better SEO':'  ✓');
+  });
+}
+
+function applySettings(){
+  document.getElementById('site-name-display').textContent = settings.name;
+  document.getElementById('site-tagline-display').textContent = settings.tagline;
+  document.getElementById('site-title').textContent = settings.name + ' — ' + settings.tagline;
+  document.getElementById('about-widget-text').textContent = settings.about;
+  document.getElementById('footer-site-name').textContent = settings.name;
+  document.getElementById('footer-about').textContent = settings.f1t || settings.about;
+  document.getElementById('footer-copy').textContent = '© ' + new Date().getFullYear() + ' ' + settings.name + '. All rights reserved.';
+  const t = settings.ticker+'  ●  '+settings.ticker;
+  document.getElementById('ticker-text').textContent = t;
+}
+
+/* ── HOME RENDER ── */
+function renderHome(){
+  const pub = posts.filter(p=>p.status==='published'&&(filterCat==='all'||p.category===filterCat));
+
+  // HERO
+  const heroGrid = document.getElementById('hero-grid');
+  if(pub.length===0){
+    heroGrid.innerHTML='<div style="padding:40px;text-align:center;font-family:var(--sans);color:var(--muted);grid-column:1/-1">No published posts yet. <a href="#" onclick="showLogin()" style="color:var(--accent)">Go to Admin →</a></div>';
+  } else {
+    const hero = pub[0];
+    const sides = pub.slice(1,4);
+    heroGrid.innerHTML = `
+      <div class="hero-main" onclick="openArticle(${hero.id})">
+        ${hero.image
+          ? `<img src="${hero.image}" alt="${hero.imageAlt||hero.title}" onerror="this.outerHTML='<div class=\\'no-img-hero\\'>📰</div>'">`
+          : `<div class="no-img-hero">📰</div>`}
+        <div class="hero-overlay">
+          ${hero.hasYt?`<span class="yt-badge">▶ VIDEO</span><br>`:''}
+          <span class="cat-badge">${hero.category}</span>
+          <h2>${hero.title}</h2>
+          <p class="excerpt">${hero.excerpt||''}</p>
+          <p class="meta">📅 ${fmtDate(hero.date)} &nbsp;·&nbsp; ✍ ${hero.author}</p>
+        </div>
+      </div>
+      <div class="hero-side">
+        ${sides.map(p=>`
+          <div class="hero-side-card" onclick="openArticle(${p.id})">
+            ${p.image
+              ? `<img src="${p.image}" alt="${p.imageAlt||p.title}" onerror="this.outerHTML='<div class=\\'no-img-side\\'>📰</div>'">`
+              : `<div class="no-img-side">📰</div>`}
+            <div class="side-overlay">
+              <span class="cat-badge-sm">${p.category}</span>
+              <h3>${p.title}</h3>
+              <p class="side-excerpt">${p.excerpt||''}</p>
+              <p class="side-meta">📅 ${fmtDate(p.date)} · ✍ ${p.author}</p>
+            </div>
+          </div>`).join('')}
+      </div>`;
+  }
+
+  // CARD GRID (posts 4–9)
+  const gridPosts = pub.slice(4,10);
+  const grid = document.getElementById('posts-grid');
+  grid.innerHTML = gridPosts.map(p=>postCard(p)).join('');
+  document.getElementById('grid-section').style.display = gridPosts.length?'block':'none';
+
+  // LIST (posts 10+)
+  const listPosts = pub.slice(10);
+  const list = document.getElementById('posts-list');
+  list.innerHTML = listPosts.map(p=>postListItem(p)).join('');
+  document.getElementById('list-section').style.display = listPosts.length?'block':'none';
+}
+
+function postCard(p){
+  return `<article class="post-card" onclick="openArticle(${p.id})">
+    <div class="card-media">
+      ${p.image
+        ? `<img class="card-img" src="${p.image}" alt="${p.imageAlt||p.title}" onerror="this.outerHTML='<div class=\\'card-img-ph\\'>📰</div>'">`
+        : `<div class="card-img-ph">📰</div>`}
+      ${p.hasYt?`<span class="yt-play" title="Watch Video"></span>`:''}
+    </div>
+    <div class="post-card-body">
+      <p class="cat">${p.category}</p>
+      <h3>${p.title}</h3>
+      <p class="card-excerpt">${p.excerpt||''}</p>
+      <p class="meta">📅 ${fmtDate(p.date)} · ✍ ${p.author}</p>
+    </div>
+  </article>`;
+}
+
+function postListItem(p){
+  return `<div class="post-list-item" onclick="openArticle(${p.id})">
+    ${p.image
+      ? `<img class="li-img" src="${p.image}" alt="${p.imageAlt||p.title}" onerror="this.outerHTML='<div class=\\'li-ph\\'>📰</div>'">`
+      : `<div class="li-ph">📰</div>`}
+    <div>
+      <p class="cat">${p.category}</p>
+      <h3>${p.title}</h3>
+      <p class="li-excerpt">${p.excerpt||''}</p>
+      <p class="meta">📅 ${fmtDate(p.date)} · ✍ ${p.author}</p>
+    </div>
+  </div>`;
+}
+
+function renderNavCats(){
+  const cats = [...new Set(posts.filter(p=>p.status==='published').map(p=>p.category))];
+  const nav = document.getElementById('nav-categories');
+  nav.innerHTML = `<li><a href="#" class="${filterCat==='all'?'active':''}" onclick="filterCategory('all');return false">All</a></li>`
+    + cats.map(c=>`<li><a href="#" class="${filterCat===c?'active':''}" onclick="filterCategory('${c}');return false">${c}</a></li>`).join('');
+}
+
+function renderSidebar(){
+  const pub = posts.filter(p=>p.status==='published');
+  // Trending (by views)
+  const trending = [...pub].sort((a,b)=>(b.views||0)-(a.views||0)).slice(0,4);
+  document.getElementById('trending-widget').innerHTML = trending.map(p=>`
+    <div class="trending-item" onclick="openArticle(${p.id})">
+      ${p.image?`<img src="${p.image}" alt="${p.imageAlt||p.title}" onerror="this.outerHTML='<div class=\\'ti-ph\\'>📰</div>'">`:`<div class="ti-ph">📰</div>`}
+      <div>
+        <p class="ti-title">${p.title}</p>
+        <p class="ti-meta">📅 ${fmtDate(p.date)}</p>
+      </div>
+    </div>`).join('') || '<p style="font-family:var(--sans);font-size:13px;color:var(--muted)">No posts yet</p>';
+
+  // Categories
+  const cats = [...new Set(pub.map(p=>p.category))];
+  const counts = {};
+  cats.forEach(c=>counts[c]=pub.filter(p=>p.category===c).length);
+  document.getElementById('cat-list').innerHTML = cats.map(c=>`
+    <li>
+      <span class="cat-dot"></span>
+      <a href="#" onclick="filterCategory('${c}');return false">${c}</a>
+      <span class="cat-count">${counts[c]}</span>
+    </li>`).join('') || '<li style="color:var(--muted);font-size:13px;font-family:var(--sans)">No categories yet</li>';
+}
+
+function filterCategory(cat){
+  filterCat = cat;
+  showHome();
+}
+
+/* ── SEARCH ── */
+function doSearch(q){
+  q = q.trim().toLowerCase();
+  if(!q){ showHome(); return; }
+  document.getElementById('home-view').style.display='none';
+  document.getElementById('search-results-view').style.display='block';
+  document.getElementById('article-view').style.display='none';
+  const results = posts.filter(p=>p.status==='published'&&(
+    p.title.toLowerCase().includes(q)||
+    p.excerpt.toLowerCase().includes(q)||
+    p.category.toLowerCase().includes(q)||
+    (p.tags||'').toLowerCase().includes(q)
+  ));
+  document.getElementById('search-hd').textContent = `Results for "${q}" (${results.length})`;
+  document.getElementById('search-grid').innerHTML = results.map(p=>postCard(p)).join('');
+  document.getElementById('search-empty').style.display = results.length?'none':'block';
+}
+
+/* ── ARTICLE ── */
+function openArticle(id){
+  const p = posts.find(x=>x.id==id);
+  if(!p) return;
+  p.views = (p.views||0)+1;
+  savePosts();
+
+  document.getElementById('av-cat').textContent = p.category;
+  document.getElementById('av-title').textContent = p.title;
+  document.getElementById('av-meta').innerHTML = `
+    <span>📅 ${fmtDate(p.date)}</span>
+    <span class="author-pill">✍ ${p.author}</span>
+    <span>👁 ${p.views} views</span>`;
+
+  // image
+  const img = document.getElementById('av-img');
+  const cap = document.getElementById('av-imgcap');
+  if(p.image){
+    img.src=p.image; img.alt=p.imageAlt||p.title; img.style.display='block';
+    if(p.imageAlt){cap.textContent=p.imageAlt;cap.style.display='block';}else{cap.style.display='none';}
+  } else {
+    img.style.display='none'; cap.style.display='none';
+  }
+
+  // YouTube
+  const ytWrap = document.getElementById('av-yt');
+  const ytFrame = document.getElementById('av-yt-frame');
+  if(p.hasYt && p.ytUrl){
+    const ytId = extractYtId(p.ytUrl);
+    if(ytId){
+      ytFrame.src = `https://www.youtube.com/embed/${ytId}?rel=0`;
+      ytWrap.style.display='block';
+    } else { ytWrap.style.display='none'; }
+  } else { ytWrap.style.display='none'; ytFrame.src=''; }
+
+  // body
+  document.getElementById('av-body').innerHTML = p.body.split('\n').filter(l=>l.trim()).map(l=>`<p>${l}</p>`).join('');
+
+  // tags
+  const tags = (p.tags||'').split(',').map(t=>t.trim()).filter(Boolean);
+  document.getElementById('av-tags').innerHTML = tags.map(t=>`<span class="tag-pill">${t}</span>`).join('');
+
+  // related
+  const related = posts.filter(x=>x.status==='published'&&x.id!==p.id&&x.category===p.category).slice(0,3);
+  document.getElementById('related-grid').innerHTML = related.map(r=>postCard(r)).join('');
+  document.getElementById('related-section').style.display = related.length?'block':'none';
+
+  document.title = p.title + ' — ' + settings.name;
+  setView('article');
+  window.scrollTo(0,0);
+}
+
+function extractYtId(url){
+  url = url.trim();
+  // plain ID (11 chars)
+  if(/^[a-zA-Z0-9_-]{11}$/.test(url)) return url;
+  // various URL formats
+  const m = url.match(/(?:v=|\/embed\/|\/shorts\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+
+/* ── VIEWS ── */
+function setView(v){
+  document.getElementById('home-view').style.display        = v==='home'    ? 'block':'none';
+  document.getElementById('article-view').style.display     = v==='article' ? 'block':'none';
+  document.getElementById('admin-panel').style.display      = v==='admin'   ? 'block':'none';
+  document.getElementById('login-panel').style.display      = v==='login'   ? 'block':'none';
+  document.getElementById('search-results-view').style.display = v==='search'? 'block':'none';
+  document.getElementById('site-footer').style.display      = v==='admin'   ? 'none' :'block';
+  currentView = v;
+}
+
+function showHome(){
+  document.getElementById('search-input').value='';
+  filterCat='all';
+  renderHome(); renderNavCats(); renderSidebar();
+  setView('home');
+  document.title = settings.name + ' — ' + settings.tagline;
+  window.scrollTo(0,0);
+}
+
+function goHome(){ showHome(); }
+
+function showLogin(){
+  setView('login');
+  setTimeout(()=>document.getElementById('login-pw').focus(),100);
+}
+
+function doLogin(){
+  if(document.getElementById('login-pw').value === settings.pw){
+    document.getElementById('login-pw').value='';
+    setView('admin');
+    loadSettingsForm(); renderAdminTable();
+    toast('Welcome back! ✓');
+  } else {
+    toast('Wrong password — try again.', true);
+  }
+}
+
+/* ── ADMIN TABS ── */
+function switchTab(tab){
+  ['tab-write','tab-posts','tab-settings','tab-seo'].forEach(t=>{
+    document.getElementById(t).style.display = t===tab?'block':'none';
+  });
+  document.querySelectorAll('.admin-tab').forEach((btn,i)=>{
+    btn.classList.toggle('active',['tab-write','tab-posts','tab-settings','tab-seo'][i]===tab);
+  });
+  if(tab==='tab-posts') renderAdminTable();
+}
+
+function toggleYtField(){
+  const on = document.getElementById('f-has-yt').checked;
+  document.getElementById('yt-field').style.display = on?'block':'none';
+}
+
+/* ── SAVE POST ── */
+function savePost(status){
+  const title = document.getElementById('f-title').value.trim();
+  const body  = document.getElementById('f-body').value.trim();
+  if(!title){ toast('Please enter a title!', true); return; }
+  if(!body){ toast('Please enter the article content!', true); return; }
+  const editId = document.getElementById('edit-id').value;
+  const hasYt = document.getElementById('f-has-yt').checked;
+  const data = {
+    title, body, status,
+    category: document.getElementById('f-cat').value,
+    author:   document.getElementById('f-author').value || 'Editor',
+    excerpt:  document.getElementById('f-excerpt').value,
+    image:    document.getElementById('f-img').value.trim(),
+    imageAlt: document.getElementById('f-imgalt').value,
+    metaDesc: document.getElementById('f-metadesc').value,
+    tags:     document.getElementById('f-tags').value,
+    hasYt:    hasYt,
+    ytUrl:    hasYt ? document.getElementById('f-yturl').value.trim() : '',
+    date:     new Date().toISOString()
+  };
+  if(editId){
+    const idx = posts.findIndex(p=>p.id==editId);
+    if(idx>=0) posts[idx] = {...posts[idx], ...data};
+  } else {
+    posts.unshift({id:Date.now(), views:0, ...data});
+  }
+  savePosts(); clearEditor();
+  toast(status==='published'?'✅ Post published!':'💾 Draft saved!');
+  switchTab('tab-posts');
+}
+
+function clearEditor(){
+  document.getElementById('edit-id').value='';
+  document.getElementById('editor-title').textContent='✏ Write New Post';
+  ['f-title','f-author','f-excerpt','f-img','f-imgalt','f-body','f-metadesc','f-tags','f-yturl'].forEach(id=>{
+    document.getElementById(id).value='';
+  });
+  document.getElementById('f-cat').value='News';
+  document.getElementById('f-has-yt').checked=false;
+  document.getElementById('yt-field').style.display='none';
+  document.getElementById('body-count').textContent='0 words';
+}
+
+function editPost(id){
+  const p = posts.find(x=>x.id==id);
+  if(!p) return;
+  switchTab('tab-write');
+  document.getElementById('edit-id').value=p.id;
+  document.getElementById('editor-title').textContent='✏ Edit Post';
+  document.getElementById('f-title').value=p.title;
+  document.getElementById('f-cat').value=p.category;
+  document.getElementById('f-author').value=p.author;
+  document.getElementById('f-excerpt').value=p.excerpt||'';
+  document.getElementById('f-img').value=p.image||'';
+  document.getElementById('f-imgalt').value=p.imageAlt||'';
+  document.getElementById('f-body').value=p.body;
+  document.getElementById('f-metadesc').value=p.metaDesc||'';
+  document.getElementById('f-tags').value=p.tags||'';
+  document.getElementById('f-has-yt').checked=!!p.hasYt;
+  document.getElementById('yt-field').style.display=p.hasYt?'block':'none';
+  document.getElementById('f-yturl').value=p.ytUrl||'';
+  const words = p.body.trim().split(/\s+/).filter(w=>w).length;
+  document.getElementById('body-count').textContent = words + ' words' + (words<500?' — aim for 500+ for better SEO':'  ✓');
+  window.scrollTo(0,0);
+}
+
+function deletePost(id){
+  if(!confirm('Delete this post? This cannot be undone.')) return;
+  posts = posts.filter(p=>p.id!=id);
+  savePosts(); renderAdminTable(); toast('Post deleted.');
+}
+
+function toggleStatus(id){
+  const p=posts.find(x=>x.id==id);
+  if(p){p.status=p.status==='published'?'draft':'published';savePosts();renderAdminTable();toast('Status updated.');}
+}
+
+function renderAdminTable(){
+  const tbody=document.getElementById('admin-post-table');
+  if(!posts.length){
+    tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:30px;font-family:var(--sans);font-size:14px">No posts yet. Write your first post!</td></tr>';
+    return;
+  }
+  tbody.innerHTML=posts.map(p=>`
+    <tr>
+      <td style="font-weight:500">${p.title}${p.hasYt?'<span class="yt-tag">▶ YT</span>':''}</td>
+      <td style="font-family:var(--sans)">${p.category}</td>
+      <td style="font-family:var(--sans);font-size:12px;color:var(--muted);white-space:nowrap">${fmtDate(p.date)}</td>
+      <td style="font-family:var(--sans);text-align:center">${p.views||0}</td>
+      <td><span class="status-badge status-${p.status}">${p.status}</span></td>
+      <td>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="btn btn-outline btn-sm" onclick="editPost(${p.id})">Edit</button>
+          <button class="btn btn-outline btn-sm" onclick="toggleStatus(${p.id})">${p.status==='published'?'Unpublish':'Publish'}</button>
+          <button class="btn btn-danger btn-sm" onclick="deletePost(${p.id})">Delete</button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+function loadSettingsForm(){
+  document.getElementById('s-name').value=settings.name;
+  document.getElementById('s-tagline').value=settings.tagline;
+  document.getElementById('s-about').value=settings.about;
+  document.getElementById('s-adsense').value=settings.adsense||'';
+  document.getElementById('s-ticker').value=settings.ticker;
+  document.getElementById('s-f1').value=settings.f1||'';
+  document.getElementById('s-f1t').value=settings.f1t||'';
+}
+
+function saveSettings(){
+  const newPw=document.getElementById('s-pw').value.trim();
+  settings.name=document.getElementById('s-name').value||settings.name;
+  settings.tagline=document.getElementById('s-tagline').value||settings.tagline;
+  settings.about=document.getElementById('s-about').value||settings.about;
+  settings.adsense=document.getElementById('s-adsense').value;
+  settings.ticker=document.getElementById('s-ticker').value||settings.ticker;
+  settings.f1=document.getElementById('s-f1').value;
+  settings.f1t=document.getElementById('s-f1t').value;
+  if(newPw) settings.pw=newPw;
+  localStorage.setItem(STORAGE_SETTINGS,JSON.stringify(settings));
+  applySettings();
+  document.getElementById('s-pw').value='';
+  toast('Settings saved! ✓');
+}
+
+/* ── UTILS ── */
+function savePosts(){ localStorage.setItem(STORAGE_POSTS,JSON.stringify(posts)); }
+function fmtDate(d){ return new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}); }
+function toast(msg,err){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.style.display='block';
+  t.className=err?'error':'';
+  clearTimeout(window._tt);
+  window._tt=setTimeout(()=>t.style.display='none',3200);
+}
+
+init();
+</script>
+</body>
+</html>
